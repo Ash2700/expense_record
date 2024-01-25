@@ -1,8 +1,9 @@
 const express= require('express')
 const router = express.Router()
 const record= require('./record')
+const user= require('./user')
 
-
+router.use('/user',user)
 router.use('/record',record)
 
 router.get('/',(req, res, next)=>{
@@ -11,12 +12,12 @@ router.get('/',(req, res, next)=>{
 
 
 router.get('/login',(req, res, next)=>{
-    res.send('login')
+    res.render('login')
+})
+router.get('/register', (req, res, next)=>{
+    res.render('register')
 })
 
-router.get('/register', (req, res, next)=>{
-    res.send('register')
-})
 
 router.post('/logout', (req, res, next)=>{
     res.send('logout')

@@ -5,7 +5,6 @@ module.exports = {
   async up (queryInterface, Sequelize) {
     const hash =await bcrypt.hash('123456',10)
    await queryInterface.bulkInsert('Users',[{
-
     name:'John',
     email:'father@mail.com',
     password:hash,
@@ -21,12 +20,6 @@ module.exports = {
   },
 
   async down (queryInterface, Sequelize) {
-    /**
-     * Add commands to revert seed here.
-     *
-     * Example:
-     * await queryInterface.bulkDelete('People', null, {});
-     */
     await queryInterface.bulkDelete('Users',null,{})
   }
 };
