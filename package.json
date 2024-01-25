@@ -7,7 +7,8 @@
     "start": "node app.js",
     "dev": "nodemon app.js",
     "migration": "npx sequelize db:migrate",
-    "seed": "npx sequelize db:seed:all",
+    "seeder": "npx sequelize db:seed:all",
+    "seed": "node models/seeds/categorySeeder.js && node models/seeds/recordSeeder.js",
     "standard": "standard --fix",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
