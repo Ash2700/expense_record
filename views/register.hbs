@@ -2,8 +2,9 @@
 <div class="container w-50  mt-5">
     <form action="/user/register" method="post">
         <div class="mb-3">
-            <label for="exampleInputEmail1" class="form-label">name</label>
-            <input type="text" class="form-control" id="InputName" aria-describedby="nameHelp" name="name" placeholder="請輸入你的name" >
+            <label for="InputName" class="form-label">name</label>
+            <input type="text" class="form-control" id="InputName" aria-describedby="nameHelp" name="name" placeholder="請輸入你的name" required >
+            <div id="emailHelp" class="form-text">最少1個字</div>
         </div>
         <div class="mb-3">
             <label for="InputEmail1" class="form-label">Email address</label>
@@ -11,11 +12,12 @@
         </div>
         <div class="mb-3">
             <label for="InputPassword1" class="form-label">Password</label>
-            <input type="password" class="form-control" id="InputPassword" name="password" placeholder="請輸入你的密碼" required>
+            <input type="password" class="form-control" id="InputPassword" name="password" placeholder="請輸入你的密碼" required minlength="4" maxlength="12">
+            <div id="emailHelp" class="form-text">最少4個字,最多12字</div>
         </div>
         <div class="mb-3">
             <label for="InputPassword1" class="form-label">confirmPassword</label>
-            <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" placeholder="請輸入相同密碼" required>
+            <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" placeholder="請輸入相同密碼" required minlength="4" maxlength="12">
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
