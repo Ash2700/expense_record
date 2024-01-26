@@ -1,6 +1,13 @@
+if(process.env.NODE_ENV=== 'development'){
+    require('dotenv').config()
+}
 const express =require('express')
 const { engine } = require('express-handlebars')
+const flash = require('connect-flash')
+const session= require('express-session')
 const app = express()
+const messageHandler= require('./middleware/message-handler')
+const errorHandler = require('./middleware/errorMessage-handle')
 const router= require('./routes')
 const port= 3000
 
@@ -11,9 +18,17 @@ app.set('view engine','.hbs')
 app.set('views','./views')
 app.use(express.static('public'))
 app.use(express.urlencoded({extended:true}))
+app.use(session({
+    secret:process.env.SESSION_SECRET,
+    resave:false,
+    saveUninitialized:false,
+}))
 
+app.use(flash())
+
+app.use(messageHandler)
 app.use(router)
-
+app.use(errorHandler)
 
 
 app.listen(port,(()=>{
