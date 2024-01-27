@@ -5,12 +5,12 @@ const express =require('express')
 const { engine } = require('express-handlebars')
 const flash = require('connect-flash')
 const session= require('express-session')
+const passport= require('./config/passport')
 const app = express()
 const messageHandler= require('./middleware/message-handler')
 const errorHandler = require('./middleware/errorMessage-handle')
 const router= require('./routes')
 const port= 3000
-
 
 
 app.engine('hbs',engine({extname:('.hbs')}))
@@ -25,6 +25,9 @@ app.use(session({
 }))
 
 app.use(flash())
+app.use(passport.initialize())
+app.use(passport.session())
+console.log('1')
 
 app.use(messageHandler)
 app.use(router)

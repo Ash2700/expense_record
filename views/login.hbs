@@ -3,12 +3,12 @@
 {{>message}}
     <form action="/login" method="post">
         <div class="mb-3">
-            <label for="exampleInputEmail1" class="form-label">Email address</label>
-            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="請輸入你的email" required>
+            <label for="email" class="form-label">Email address</label>
+            <input type="email" class="form-control" name="email" id="name" aria-describedby="emailHelp" placeholder="請輸入你的email" required>
         </div>
         <div class="mb-3">
-            <label for="exampleInputPassword1" class="form-label">Password</label>
-            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="請輸入你的密碼" required>
+            <label for="password" class="form-label">Password</label>
+            <input type="password" class="form-control" name="password" id="Password" placeholder="請輸入你的密碼" required>
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
