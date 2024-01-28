@@ -1,0 +1,28 @@
+{"CATEGORY" :
+    [
+        {
+            "id": 1,
+            "name": "家居物業",
+            "label": "bi bi-house"
+        },
+        {
+            "id": 2,
+            "name": "交通旅行",
+            "label": "bi bi-bus-front"
+        },
+        {
+            "id": 3,
+            "name": "休閒娛樂",
+            "label": "bi bi-emoji-smile"
+        },
+        {
+            "id": 4,
+            "name":"餐飲食品",
+            "label": "bi bi-cup-straw"
+        },
+        {
+            "id": 5,
+            "name": "其他",
+            "label": "bi bi-asterisk"
+        }
+    ]}

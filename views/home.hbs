@@ -1,3 +1,55 @@
 {{>navbar}}
 {{>message}}
+<div class="container w-75 " style="background-color: #DBD3C9;">
+    <div class="row mt-5 d-flex">
+        <div class="col-8 p-0">
+            <form action="/records" method="get" class="p-0 m-0 d-flex" id="select-form" >
+                <select class="form-select" name="category" id="category-select" aria-label="category select " style="background-color: #88A0A8;" >
+                    <optgroup label="類別">
+                    <option value="0" {{#eq selected '0'}}selected{{/eq}} >全部</option>
+                    <option value="1" {{#eq selected '1'}}selected{{/eq}}>家居物業</option>
+                    <option value="2" {{#eq selected '2'}}selected{{/eq}}>交通旅行</option>
+                    <option value="3" {{#eq selected '3'}}selected{{/eq}}>休閒娛樂</option>
+                    <option value="4" {{#eq selected '4'}}selected{{/eq}}>餐飲食品</option>
+                    <option value="5" {{#eq selected '5'}}selected{{/eq}}>其他</option>
+                </select>
+            </form>
+        </div>
 
+    </div>
+
+    <div class="row mt-3 ">
+        <div class="col-4" style="background-color: #88A0A8;">總金額:</div>
+        <div class="col-4" style="background-color: #88A0A8;">
+            <h1 style="font-size: 3em;">{{totalAmount}}</h1>
+        </div>
+    </div>
+    {{#each records}}
+    <div class="row my-3 {{this.index}} " style="">
+        <div class="col-1"><i class="{{this.label}} justify-content-center" style="font-size: 2rem; color: #88A0A8;"></i></div>
+        <div class="col-3">
+            <h3>{{this.name}}</h3>
+            <p class="" style="font-size: 0.7rem;">{{this.date}}</p>
+        </div>
+        <div class="col-3">
+            <h4 class="text-end">{{this.amount}}</h4>
+        </div>
+        <div class="col-2">
+            <form action="/record/edit" method="get"><button type="submit" class="btn btn-outline-dark">修改</button>
+            </form>
+        </div>
+        <div class="col-2">
+            <form action="/record?_method=DELETE" method="post"><button type="submit"
+                    class="btn btn-outline-dark">刪除</button></form>
+        </div>
+    </div>
+    {{/each}}
+    <div class="row my-3 justify-content-center ">
+        <div class="col-3 ">
+            <form action="/record/add" class="">
+                <button type="button" class="btn  btn-lg " style="background-color: #88A0A8;" >新增支出</button>
+            </form>
+        </div>
+    </div>
+
+</div>
