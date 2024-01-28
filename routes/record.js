@@ -34,19 +34,25 @@ router.get('/', async (req, res, next) => {
 
   const recordData = await record.findAll({
     attributes: ['id', 'name', 'amount', 'userID', 'categoryID', 'date'],
+    where:{userID:userId},
     raw: true
   })
-  const totalAmount = await sumFromCategory(categoryID)
+  
+  const totalAmount = await sumFromCategory(categoryID,userId)
   await dataModify(recordData)
   return res.render('home', { records: recordData, totalAmount, selected: categoryID })
 })
 
-async function sumFromCategory (categoryIDFormReq) {
+async function sumFromCategory (categoryIDFormReq, userId) {
   const id = categoryIDFormReq || zeroString
   if (id === zeroString) {
-    return await record.sum('amount')
+    const sumAllCategory=await record.sum('amount',{where:{userID:userId}})
+    if(!sumAllCategory){
+      return 0
+    }
+    return sumAllCategory
   } else {
-    const SumCategory = await record.sum('amount', { where: { categoryID: id } })
+    const SumCategory = await record.sum('amount', { where: { categoryID: id,userID:userId } })
     if (!SumCategory) {
       return 0
     }
@@ -55,11 +61,40 @@ async function sumFromCategory (categoryIDFormReq) {
 }
 
 router.get('/add', (req, res, next) => {
-  res.send('add expense')
+  
+  
+  res.render('expense',{categoryData})
 })
-router.post('/', (req, res, next) => {
-  res.send('record post')
+
+router.post('/add',  (req, res, next) => {
+  const {name, date, categoryId , amount} = req.body
+  const userID=req.user.id
+  const checkInfo= checkData(req.body)
+  if(checkInfo.result===false){
+    req.flash('error',`${checkInfo.message}`)
+    return res.redirect('back')
+  }
+  return record.create({name,date,categoryID:categoryId,amount,userID})
+    .then(()=>{
+      req.flash('success','新增成功')
+      res.redirect('/records')
+    })
+    .catch((error)=>{
+      error.errorMessage='新增失敗'
+      next(error)
+    })
 })
+//檢查資料
+function checkData(dataGroup){
+  const {name, date, categoryId, amount} =dataGroup
+  let info={result:false,message:''}
+  if(!name || !date || !categoryId || !amount){
+    info.message='必填欄位需輸入'
+    return info
+  }
+  info.result=true
+  return info
+}
 
 router.get('/edit', (req, res, next) => {
   res.send('edit expense')
