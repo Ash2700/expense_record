@@ -1,6 +1,6 @@
 {{>navbar}}
 {{>message}}
-<div class="container w-75 " style="background-color: #DBD3C9;">
+<div class="container w-75 " id="home-container" style="background-color: #DBD3C9;">
     <div class="row mt-5 d-flex">
         <div class="col-8 p-0">
             <form action="/records" method="get" class="p-0 m-0 d-flex" id="select-form" >
@@ -38,8 +38,8 @@
             <form action="/records/edit/{{this.id}}" method="get"><button type="submit" class="btn btn-outline-dark">修改</button>
             </form>
         </div>
-        <div class="col-2">
-            <form action="/records/edit/{{this.id}}?_method=DELETE" method="post"><button type="submit"
+        <div class="col-2" id="deleteButton">
+            <form action="/records/edit/{{this.id}}?_method=DELETE" onclick=confirm('刪除嗎') method="post"><button type="submit"
                     class="btn btn-outline-dark">刪除</button></form>
         </div>
     </div>
