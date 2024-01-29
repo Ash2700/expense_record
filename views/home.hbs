@@ -25,7 +25,7 @@
         </div>
     </div>
     {{#each records}}
-    <div class="row my-3 {{this.index}} " style="">
+    <div class="row my-3  " style="">
         <div class="col-1"><i class="{{this.label}} justify-content-center" style="font-size: 2rem; color: #88A0A8;"></i></div>
         <div class="col-3">
             <h3>{{this.name}}</h3>
@@ -35,11 +35,11 @@
             <h4 class="text-end">{{this.amount}}</h4>
         </div>
         <div class="col-2">
-            <form action="/record/edit" method="get"><button type="submit" class="btn btn-outline-dark">修改</button>
+            <form action="/records/edit/{{this.id}}" method="get"><button type="submit" class="btn btn-outline-dark">修改</button>
             </form>
         </div>
         <div class="col-2">
-            <form action="/record?_method=DELETE" method="post"><button type="submit"
+            <form action="/records/edit/{{this.id}}?_method=DELETE" method="post"><button type="submit"
                     class="btn btn-outline-dark">刪除</button></form>
         </div>
     </div>
