@@ -6,11 +6,14 @@ const { engine } = require('express-handlebars')
 const flash = require('connect-flash')
 const session = require('express-session')
 const methodOverride = require('method-override')
+const serverStatic =require('serve-static')
+const path= require('path')
 const passport = require('./config/passport')
 const messageHandler = require('./middleware/message-handler')
 const errorHandler = require('./middleware/errorMessage-handle')
 const router = require('./routes')
 const handlebarsHelpers = require('./helpers/handlebarsHelpers')
+const serveStatic = require('serve-static')
 const app = express()
 const port = 3000
 
@@ -19,7 +22,9 @@ const port = 3000
 app.engine('hbs', engine({ extname: '.hbs', helpers: handlebarsHelpers }))
 app.set('view engine', '.hbs')
 app.set('views', './views')
-app.use(express.static('public'))
+
+app.use(serverStatic(path.join(__dirname, 'public')))
+
 app.use(methodOverride('_method'))
 app.use(express.urlencoded({ extended: true }))
 app.use(session({
