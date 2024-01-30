@@ -5,27 +5,6 @@ const user = require('./user')
 const passport = require('passport')
 const authHandler = require('../middleware/auth-handler')
 
-const db=require('../models')
-const records=db.records
-const category = db.category
-async function test(){
-  const rec= records.findByPk(1, {
-    attributes: ['id', 'name'],
-    raw: true
-  })
-  const cat = category.findByPk(1,{
-    attributes:['id','name'],
-    raw:true
-  })
-const i =await rec
-const k = await cat
-  console.log(i)
-  console.log(k)
-
-}
-test()
-
-
 router.use('/user', user)
 router.use('/records', authHandler, record)
 
