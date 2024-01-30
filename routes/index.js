@@ -25,6 +25,7 @@ const k = await cat
   console.log(k)
 
 }
+test()
 
 
 router.use('/user', user)
