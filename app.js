@@ -23,13 +23,7 @@ app.engine('hbs', engine({ extname: '.hbs', helpers: handlebarsHelpers }))
 app.set('view engine', '.hbs')
 app.set('views', './views')
 
-app.use(express.static('public',{
-  setHeaders:(res, path)=>{
-    if(path.endsWith('.js')){
-      res.setHeader('content-Type', 'application/javascript')
-    }
-  }
-}))
+app.use( express.static('public'));
 
 app.use(methodOverride('_method'))
 app.use(express.urlencoded({ extended: true }))
@@ -38,6 +32,10 @@ app.use(session({
   resave: false,
   saveUninitialized: false
 }))
+app.get('/javascript/icon.js', function(req, res) {
+  res.type('application/javascript');
+  res.sendFile(__dirname + '/public/javascript/icon.js');
+});
 
 app.use(flash())
 app.use(passport.initialize())
