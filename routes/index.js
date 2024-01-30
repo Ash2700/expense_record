@@ -5,7 +5,7 @@ const user = require('./user')
 const passport = require('passport')
 const authHandler = require('../middleware/auth-handler')
 
-const db=require('./models')
+const db=require('../models')
 const records=db.record
 const category = db.categoory
 async function test(){
