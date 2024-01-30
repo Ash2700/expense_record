@@ -129,7 +129,7 @@ dist
 .yarn/install-state.gz
 .pnp.*
 #other
-config/config.json
+
 
 # Elastic Beanstalk Files
 .elasticbeanstalk/*

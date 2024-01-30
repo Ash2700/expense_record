@@ -6,19 +6,19 @@ const { engine } = require('express-handlebars')
 const flash = require('connect-flash')
 const session = require('express-session')
 const methodOverride = require('method-override')
-const serverStatic =require('serve-static')
+
 const path= require('path')
 const passport = require('./config/passport')
 const messageHandler = require('./middleware/message-handler')
 const errorHandler = require('./middleware/errorMessage-handle')
 const router = require('./routes')
 const handlebarsHelpers = require('./helpers/handlebarsHelpers')
-const serveStatic = require('serve-static')
+
 const app = express()
 const port = 3000
 
-
-
+const publicPath =path.resolve(__dirname,'public')
+console.log(publicPath)
 app.engine('hbs', engine({ extname: '.hbs', helpers: handlebarsHelpers }))
 app.set('view engine', '.hbs')
 app.set('views', './views')
@@ -32,10 +32,7 @@ app.use(session({
   resave: false,
   saveUninitialized: false
 }))
-app.get('/javascript/icon.js', function(req, res) {
-  res.type('application/javascript');
-  res.sendFile(__dirname + '/public/javascript/icon.js');
-});
+
 
 app.use(flash())
 app.use(passport.initialize())
