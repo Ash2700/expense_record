@@ -18,7 +18,9 @@ const app = express()
 const port = 3000
 
 const publicPath =path.resolve(__dirname,'public')
+const iconjjsPath= path.resolve(__dirname,'javascript')
 console.log(publicPath)
+console.log(iconjjsPath)
 app.engine('hbs', engine({ extname: '.hbs', helpers: handlebarsHelpers }))
 app.set('view engine', '.hbs')
 app.set('views', './views')
