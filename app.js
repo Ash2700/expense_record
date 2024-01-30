@@ -23,7 +23,13 @@ app.engine('hbs', engine({ extname: '.hbs', helpers: handlebarsHelpers }))
 app.set('view engine', '.hbs')
 app.set('views', './views')
 
-app.use(serverStatic(path.join(__dirname, 'public')))
+app.use(express.static('public',{
+  setHeaders:(res, path)=>{
+    if(path.endsWith('.js')){
+      res.setHeader('content-Type', 'application/javascript')
+    }
+  }
+}))
 
 app.use(methodOverride('_method'))
 app.use(express.urlencoded({ extended: true }))
