@@ -1,7 +1,7 @@
 {
   "development": {
     "username": "root",
-    "password": "54Ash00,,SQL",
+    "password": null,
     "database": "expense",
     "host": "127.0.0.1",
     "dialect": "mysql"
@@ -14,10 +14,6 @@
     "dialect": "mysql"
   },
   "production": {
-    "username": "root",
-    "password": null,
-    "database": "database_production",
-    "host": "127.0.0.1",
-    "dialect": "mysql"
+    "user_env_variable":"DATABASE_URL"
   }
 }

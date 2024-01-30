@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node app.js",
     "dev": "nodemon app.js",
-    "migration": "npx sequelize db:migrate",
+    "table": "npx sequelize db:migrate",
     "seeder": "npx sequelize db:seed:all",
     "seed": "node models/seeds/categorySeeder.js && node models/seeds/recordSeeder.js",
     "standard": "standard --fix",
