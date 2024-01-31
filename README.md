@@ -24,9 +24,6 @@
     
   </ul>
   
-# Demo View
-
-![image](https://github.com/Ash2700/Restaurant-List/blob/668a932627bb8906ca7ec4df7d88f470e17c57d3/demo_jp/%E9%A4%90%E5%BB%B3%E6%B8%85%E5%96%AE%E6%93%B7%E5%8F%961.JPG)
 
 
   ## [Installation - 安裝]
