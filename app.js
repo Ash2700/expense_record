@@ -7,6 +7,7 @@ const flash = require('connect-flash')
 const session = require('express-session')
 const methodOverride = require('method-override')
 
+const path= require('path')
 const passport = require('./config/passport')
 const messageHandler = require('./middleware/message-handler')
 const errorHandler = require('./middleware/errorMessage-handle')
@@ -16,12 +17,16 @@ const handlebarsHelpers = require('./helpers/handlebarsHelpers')
 const app = express()
 const port = 3000
 
+const publicPath =path.resolve(__dirname,'public')
+const iconjjsPath= path.resolve(__dirname,'javascript')
+console.log(publicPath)
+console.log(iconjjsPath)
 app.engine('hbs', engine({ extname: '.hbs', helpers: handlebarsHelpers }))
 app.set('view engine', '.hbs')
 app.set('views', './views')
 
-
 app.use( express.static('public'));
+
 app.use(methodOverride('_method'))
 app.use(express.urlencoded({ extended: true }))
 app.use(session({
