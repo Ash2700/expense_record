@@ -15,14 +15,14 @@ router.post('/register', async (req, res, next) => {
     req.flash('error', '驗證密碼必須和密碼相同')
     return res.redirect('back')
   }
-  const isReapCount = await Users.count({ where: { email } })
+  const isReapCount = Users.count({ where: { email } })
 
-  if (isReapCount > 0) {
+  if (await isReapCount > 0) {
     req.flash('error', '此email已註冊')
     return res.redirect('back')
   }
-  const hash = await bcrypt.hash(password, 10)
-  return Users.create({ name, email, password: hash })
+  const hash = bcrypt.hash(password, 10)
+  return Users.create({ name, email, password: await hash })
     .then(() => {
       req.flash('success', '註冊成功')
       res.redirect('/login')

@@ -21,10 +21,10 @@ app.engine('hbs', engine({ extname: '.hbs', helpers: handlebarsHelpers }))
 app.set('view engine', '.hbs')
 app.set('views', './views')
 
-app.use( express.static('public'));
 
 app.use(methodOverride('_method'))
 app.use(express.urlencoded({ extended: true }))
+app.use( express.static('public'));
 app.use(session({
   secret: process.env.SESSION_SECRET,
   resave: false,

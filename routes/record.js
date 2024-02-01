@@ -1,9 +1,10 @@
 const express = require('express')
 const router = express.Router()
 const db = require('../models')
+const { compareSync } = require('bcryptjs')
 const record = db.records
 const categoryData = require('../public/json/icon.json').CATEGORY
-const zeroString = '0'
+
 
 // 修改資料
 function dataModify (rawDataFormDatabase) {
@@ -28,7 +29,7 @@ function giveLabelMatchID (item) {
 
 router.get('/', async (req, res, next) => {
   const userId = req.user.id
-  const categoryID = req.query.category ? req.query.category : zeroString
+  const categoryID = req.query.category
 
   const recordData = await record.findAll({
     attributes: ['id', 'name', 'amount', 'userID', 'categoryID', 'date'],
@@ -36,25 +37,26 @@ router.get('/', async (req, res, next) => {
     where: { userID: userId },
     raw: true
   })
-
-  const totalAmount = await sumFromCategory(categoryID, userId)
-  await dataModify(recordData)
-  return res.render('home', { records: recordData, totalAmount, selected: categoryID })
+  const totalAmount = sumFromCategory(categoryID,recordData)
+  dataModify(recordData)
+  return res.render('home', { records: await recordData, totalAmount: await totalAmount, selected: categoryID })
 })
 // get sum form category or all
-async function sumFromCategory (categoryIDFormReq, userId) {
+function sumFromCategory (categoryIDFormReq,recordWithUsing) {
+  const zeroString = '0'
   const id = categoryIDFormReq || zeroString
   if (id === zeroString) {
-    const sumAllCategory = await record.sum('amount', { where: { userID: userId } })
-    if (!sumAllCategory) {
-      return 0
-    }
-    return sumAllCategory
+    const sumAllCategory = recordWithUsing.reduce((total,item)=>{
+         return total + item.amount
+      },0)
+    return  sumAllCategory
   } else {
-    const SumCategory = await record.sum('amount', { where: { categoryID: id, userID: userId } })
-    if (!SumCategory) {
-      return 0
-    }
+    const SumCategory = recordWithUsing.reduce((total,item)=>{
+      if(item.categoryID === Number(id)){
+        return total + item.amount
+      }
+      return total
+    },0)
     return SumCategory
   }
 }
@@ -84,7 +86,7 @@ router.post('/add', (req, res, next) => {
 // 檢查資料
 function checkData (reqBodyData) {
   const { name, date, categoryId, amount } = reqBodyData
-  const info = { result: false, message: '' }
+  let info = { result: false, message: '' }
   if (!name || !date || !categoryId || !amount) {
     info.message = '必填欄位需輸入'
     return info
@@ -157,7 +159,7 @@ router.delete('/edit/:id', async (req, res, next) => {
       req.flash('error', '權限不足')
       return res.redirect('back')
     }
-    await recordData.destroy()
+    recordData.destroy()
     req.flash('success', '刪除成功')
     return res.redirect('/records')
   } catch (error) {
