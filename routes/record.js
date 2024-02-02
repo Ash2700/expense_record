@@ -26,6 +26,16 @@ function giveLabelMatchID (item) {
     return null
   }
 }
+function searchKeyword(userId, categoryId){
+  let searchOption={userID:userId}
+  const zeroString = '0'
+  const categoryID= categoryId ? categoryId: zeroString
+  if(categoryID=== zeroString){
+    return searchOption
+  }
+  searchOption = {userID:userId , categoryID}
+  return searchOption
+}
 
 router.get('/', async (req, res, next) => {
   const userId = req.user.id
@@ -34,7 +44,7 @@ router.get('/', async (req, res, next) => {
   const recordData = await record.findAll({
     attributes: ['id', 'name', 'amount', 'userID', 'categoryID', 'date'],
     order:[['date','DESC']],
-    where: { userID: userId },
+    where: searchKeyword(userId,categoryID),
     raw: true
   })
   const totalAmount = sumFromCategory(categoryID,recordData)
